@@ -2,7 +2,9 @@ package com.betrybe.agrix.services;
 
 import com.betrybe.agrix.entities.Farm;
 import com.betrybe.agrix.repositories.FarmRepository;
+import com.betrybe.agrix.utils.Exception;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,23 @@ public class FarmService {
    */
   public List<Farm> getAllFarms() {
     return farmRepository.findAll();
+  }
+
+  /**
+   * Gets farm by id.
+   *
+   * @param id the id
+   * @return the farm by id
+   * @throws IllegalArgumentException the illegal argument exception
+   */
+  public Farm getFarmById(Long id) throws  IllegalArgumentException {
+    Optional<Farm> farm = farmRepository.findById(id);
+
+    if (farm.isEmpty()) {
+      throw new Exception();
+    }
+
+    return farm.get();
   }
 
 }
