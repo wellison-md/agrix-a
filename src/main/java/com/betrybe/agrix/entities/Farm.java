@@ -1,5 +1,6 @@
 package com.betrybe.agrix.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Farm {
   private Double size;
 
   @OneToMany(mappedBy = "farm")
+  @JsonIgnore
   private List<Crop> crops;
 
 
