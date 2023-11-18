@@ -3,6 +3,7 @@ package com.betrybe.agrix.services;
 import com.betrybe.agrix.entities.Crop;
 import com.betrybe.agrix.repositories.CropRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,15 @@ public class CropService {
    */
   public List<Crop> getAllCrops() {
     return cropRepository.findAll();
+  }
+
+  /**
+   * Gets crop by id.
+   *
+   * @param cropId the crop id
+   * @return the crop by id
+   */
+  public Optional<Crop> getCropById(Long cropId) {
+    return cropRepository.findById(cropId);
   }
 }
