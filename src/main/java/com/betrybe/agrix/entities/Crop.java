@@ -48,6 +48,11 @@ public class Crop {
 
   /**
    * Instantiates a new Crop.
+   */
+  public Crop() {}
+
+  /**
+   * Instantiates a new Crop.
    *
    * @param id          the id
    * @param name        the name

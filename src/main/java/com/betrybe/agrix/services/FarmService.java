@@ -57,7 +57,7 @@ public class FarmService {
    * @return the farm by id
    * @throws IllegalArgumentException the illegal argument exception
    */
-  public Farm getFarmById(Long id) throws  IllegalArgumentException {
+  public Farm getFarmById(Long id) {
     Optional<Farm> farm = farmRepository.findById(id);
 
     if (farm.isEmpty()) {
@@ -84,6 +84,17 @@ public class FarmService {
     this.insertFarm(farm);
 
     return newCrop;
+  }
+
+  /**
+   * Gets crops by id.
+   *
+   * @param farmId the farm id
+   * @return the crops by id
+   */
+  public List<Crop> getCropsById(Long farmId) {
+    Farm farm = this.getFarmById(farmId);
+    return farm.getCrops();
   }
 
 }
