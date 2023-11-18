@@ -1,6 +1,8 @@
 package com.betrybe.agrix.services;
 
+import com.betrybe.agrix.entities.Crop;
 import com.betrybe.agrix.entities.Farm;
+import com.betrybe.agrix.repositories.CropRepository;
 import com.betrybe.agrix.repositories.FarmRepository;
 import com.betrybe.agrix.utils.Exception;
 import java.util.List;
@@ -15,15 +17,18 @@ import org.springframework.stereotype.Service;
 public class FarmService {
 
   private FarmRepository farmRepository;
+  private CropRepository cropRepository;
 
   /**
    * Instantiates a new Farm service.
    *
    * @param farmRepository the farm repository
+   * @param cropRepository the crop repository
    */
   @Autowired
-  public FarmService(FarmRepository farmRepository) {
+  public FarmService(FarmRepository farmRepository, CropRepository cropRepository) {
     this.farmRepository = farmRepository;
+    this.cropRepository = cropRepository;
   }
 
   /**
@@ -60,6 +65,25 @@ public class FarmService {
     }
 
     return farm.get();
+  }
+
+  /**
+   * Create crop crop.
+   *
+   * @param id   the id
+   * @param crop the crop
+   * @return the crop
+   */
+  public Crop createCrop(Long id, Crop crop) {
+    Farm farm = this.getFarmById(id);
+    crop.setFarm(farm);
+
+    Crop newCrop = cropRepository.save(crop);
+    farm.getCrops().add(newCrop);
+
+    this.insertFarm(farm);
+
+    return newCrop;
   }
 
 }

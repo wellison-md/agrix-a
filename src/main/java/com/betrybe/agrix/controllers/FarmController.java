@@ -1,7 +1,9 @@
 package com.betrybe.agrix.controllers;
 
+import com.betrybe.agrix.dtos.CropDto;
 import com.betrybe.agrix.dtos.DtoConverter;
 import com.betrybe.agrix.dtos.FarmDto;
+import com.betrybe.agrix.entities.Crop;
 import com.betrybe.agrix.entities.Farm;
 import com.betrybe.agrix.services.FarmService;
 import java.util.List;
@@ -79,5 +81,25 @@ public class FarmController {
     return ResponseEntity
         .status(HttpStatus.OK)
         .body(DtoConverter.modelToDto(response));
+  }
+
+  /**
+   * Create crop response entity.
+   *
+   * @param farmId  the farm id
+   * @param cropDto the crop dto
+   * @return the response entity
+   */
+  @PostMapping(value = "/{farmId}/crops")
+  public ResponseEntity<CropDto> createCrop(
+      @PathVariable Long farmId,
+      @RequestBody CropDto cropDto) {
+    Crop crop = farmService.createCrop(farmId, cropDto.toCrop());
+    CropDto newCropDto = new CropDto(
+        crop.getId(),
+        crop.getName(),
+        crop.getPlantedArea(),
+        farmId);
+    return ResponseEntity.status(HttpStatus.CREATED).body(newCropDto);
   }
 }

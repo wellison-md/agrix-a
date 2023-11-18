@@ -1,11 +1,13 @@
 package com.betrybe.agrix.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 
 /**
  * The type Crop.
@@ -19,19 +21,44 @@ public class Crop {
 
   private String name;
 
-  private double plantedArea;
+  @Column(name = "planted_area")
+  private Double plantedArea;
+
+  @ManyToOne
+  @JoinColumn(name = "farm_id")
+  private Farm farm;
 
   /**
-  * Instantiates a new Crop.
-  *
-  * @param id          the id
-  * @param name        the name
-  * @param plantedArea the planted area
-  */
-  public Crop(Long id, String name, double plantedArea) {
+   * Gets farm.
+   *
+   * @return the farm
+   */
+  public Farm getFarm() {
+    return farm;
+  }
+
+  /**
+   * Sets farm.
+   *
+   * @param farm the farm
+   */
+  public void setFarm(Farm farm) {
+    this.farm = farm;
+  }
+
+  /**
+   * Instantiates a new Crop.
+   *
+   * @param id          the id
+   * @param name        the name
+   * @param plantedArea the planted area
+   * @param farm        the farm
+   */
+  public Crop(Long id, String name, double plantedArea, Farm farm) {
     this.id = id;
     this.name = name;
     this.plantedArea = plantedArea;
+    this.farm = farm;
   }
 
   /**
